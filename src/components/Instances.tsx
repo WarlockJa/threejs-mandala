@@ -19,9 +19,9 @@ export function Instances({ count = 10000, temp = new THREE.Object3D() }) {
   const color = new THREE.Color().setHSL(startHue + 0 / 10, 1.0, 0.5);
   const material = new THREE.MeshMatcapMaterial({ matcap, color });
 
-  const materials: THREE.Material[] = Array.from({ length: count }).fill(
-    material
-  );
+  //   const materials: THREE.Material[] = Array.from({ length: count }).fill(
+  //     material
+  //   );
 
   useLayoutEffect(() => {
     // Set positions
