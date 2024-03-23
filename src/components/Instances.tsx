@@ -43,6 +43,7 @@ export function Instances({ count = 10000, temp = new THREE.Object3D() }) {
   return (
     <instancedMesh
       ref={instancedMeshRef}
+      // @ts-ignore
       args={[null, null, count]}
       position={[-7.5, -7.5, -10]}
     >
