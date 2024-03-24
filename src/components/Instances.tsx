@@ -31,7 +31,10 @@ export function Instances({ count = 10000, temp = new THREE.Object3D() }) {
       temp.position.set(
         RADIUS * Math.sin(latitude) * Math.cos(longitude),
         RADIUS * Math.sin(latitude) * Math.sin(longitude),
-        RADIUS * Math.cos(longitude)
+        RADIUS * Math.cos(latitude)
+        // RADIUS * Math.sin(latitude) * Math.cos(longitude),
+        // RADIUS * Math.sin(latitude) * Math.sin(longitude),
+        // RADIUS * Math.cos(longitude)
       );
       temp.updateMatrix();
       instancedMeshRef.current?.setMatrixAt(i, temp.matrix);
