@@ -5,8 +5,8 @@ const RADIUS = 15;
 
 export function Instances({ count = 10000, temp = new THREE.Object3D() }) {
   const box = new THREE.BoxGeometry(0.1, 0.1, 0.1);
-  const ball = new THREE.SphereGeometry(1, 16, 16);
-  const knot = new THREE.TorusKnotGeometry(0.5, 0.2, 100, 16);
+  const ball = new THREE.SphereGeometry(0.1, 16, 16);
+  const knot = new THREE.TorusKnotGeometry(0.05, 0.03, 50, 16);
   const cone = new THREE.ConeGeometry(0.1, 0.1, 4);
 
   const geoms = [box, ball, knot, cone];
@@ -22,22 +22,37 @@ export function Instances({ count = 10000, temp = new THREE.Object3D() }) {
   //   const materials: THREE.Material[] = Array.from({ length: count }).fill(
   //     material
   //   );
+  const axis = new THREE.Vector3(0, 0, 1);
 
   useLayoutEffect(() => {
     // Set positions
     for (let i = 0; i < count; i++) {
       const longitude = Math.random() * 2 * Math.PI;
       const latitude = Math.acos(2 * Math.random() - 1);
-      temp.position.set(
+
+      const quaternion = new THREE.Quaternion();
+      quaternion.setFromAxisAngle(axis, i * (Math.PI / 2) * 3);
+
+      const position = new THREE.Vector3(
         RADIUS * Math.sin(latitude) * Math.cos(longitude),
         RADIUS * Math.sin(latitude) * Math.sin(longitude),
         RADIUS * Math.cos(latitude)
-        // RADIUS * Math.sin(latitude) * Math.cos(longitude),
-        // RADIUS * Math.sin(latitude) * Math.sin(longitude),
-        // RADIUS * Math.cos(longitude)
       );
-      temp.updateMatrix();
-      instancedMeshRef.current?.setMatrixAt(i, temp.matrix);
+      const scale = new THREE.Vector3().setScalar(1);
+
+      const matrix = new THREE.Matrix4();
+
+      // temp.position.set(
+      //   RADIUS * Math.sin(latitude) * Math.cos(longitude),
+      //   RADIUS * Math.sin(latitude) * Math.sin(longitude),
+      //   RADIUS * Math.cos(latitude)
+      //   // RADIUS * Math.sin(latitude) * Math.cos(longitude),
+      //   // RADIUS * Math.sin(latitude) * Math.sin(longitude),
+      //   // RADIUS * Math.cos(longitude)
+      // );
+      matrix.compose(position, quaternion, scale);
+      // temp.updateMatrix();
+      instancedMeshRef.current?.setMatrixAt(i, matrix);
     }
     // Update the instance
     // instancedMeshRef.current.instanceMatrix.needsUpdate = true;
@@ -47,13 +62,8 @@ export function Instances({ count = 10000, temp = new THREE.Object3D() }) {
     <instancedMesh
       ref={instancedMeshRef}
       // @ts-ignore
-      args={[null, null, count]}
+      args={[cone, material, count]}
       position={[-7.5, -7.5, -10]}
-    >
-      <sphereGeometry args={[0.1, 16, 16]} />
-      {/* <boxGeometry args={[0.1, 0.1, 0.1]} /> */}
-      {/* <meshPhongMaterial /> */}
-      <meshMatcapMaterial matcap={matcap} color={color} />
-    </instancedMesh>
+    />
   );
 }
