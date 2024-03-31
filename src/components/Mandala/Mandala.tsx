@@ -1,18 +1,16 @@
 "use client";
 import * as THREE from "three";
-import { useRef } from "react";
 import MandalaCircle from "./MandalaCircle";
 import { useGeometriesContext } from "../../Context/GeometriesProvider";
 import CenterPiece from "./CenterPiece";
 
-const AXIS = new THREE.Vector3(0, 0, 1);
-const numRings = 10;
-const startHue = Math.random() * 0.5 + 0.5;
-const texLoader = new THREE.TextureLoader();
-const matcap = texLoader.load("./black-n-shiney2.jpg");
-
 export default function Mandala() {
   const { geometries: geoms } = useGeometriesContext();
+  const AXIS = new THREE.Vector3(0, 0, 1);
+  const numRings = 10;
+  const startHue = Math.random() * 0.5 + 0.5;
+  const texLoader = new THREE.TextureLoader();
+  const matcap = texLoader.load("./black-n-shiney2.jpg");
 
   const mandalaRings = Array.from({ length: numRings }).map((_, index) => (
     <MandalaCircle

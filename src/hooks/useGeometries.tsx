@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { useGeometriesContext } from "../Context/GeometriesProvider";

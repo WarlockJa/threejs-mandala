@@ -1,4 +1,3 @@
-"use client";
 import { GeometriesProvider } from "@/Context/GeometriesProvider";
 import Scene from "@/components/Scene";
 

@@ -1,3 +1,4 @@
+"use client";
 import * as THREE from "three";
 import { PropsWithChildren, createContext, useContext, useState } from "react";
 
