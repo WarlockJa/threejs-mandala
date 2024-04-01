@@ -13,13 +13,16 @@ export default function Scene() {
   return (
     <Canvas camera={{ position: [0, 0, 6] }}>
       <OrbitControls />
-      <Stars factor={4} saturation={0} fade speed={1} />
       <pointLight position={[0, 0, 15]} intensity={200} />
-      <CameraZoom />
-      <CameraShake />
-      <Cloud position={[0, 0, -2]} />
-      {geometries.length < objLength ? null : <Mandala />}
-      {/* <Instances /> */}
+      <Stars factor={4} saturation={0} fade speed={1} />
+      {geometries.length < objLength ? null : (
+        <>
+          <Cloud position={[0, 0, -2]} />
+          <CameraZoom />
+          <CameraShake />
+          <Mandala />
+        </>
+      )}
     </Canvas>
   );
 }
